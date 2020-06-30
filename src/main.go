@@ -6,11 +6,15 @@
 package main
 
 import (
-	"app"
+	"github.com/CharlesDardaman/quic_modbus/src/app"
 )
 
 func main() {
-	app.RtuClient()
-	app.TcpClient()
-	app.TcpServer()
+	go app.QUICServer()
+	app.QUICClient()
+
+	//If you want to run the other examples uncomment the below code
+	// app.RtuClient()
+	// app.TcpClient()
+	// app.TCPServer()
 }

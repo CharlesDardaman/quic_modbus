@@ -2,7 +2,9 @@ package app
 
 import (
 	"log"
-	"modbustcp"
+
+	"github.com/CharlesDardaman/quic_modbus/src/modbusquic"
+	"github.com/CharlesDardaman/quic_modbus/src/modbustcp"
 )
 
 var h *handler
@@ -18,9 +20,19 @@ func (h *handler) Fault(detail string) {
 
 }
 
-func TcpServer() {
+//TCPServer starts the TCP server
+func TCPServer() {
 	modbustcp.SetHandler(h)
 	err := modbustcp.ServerCreate(80)
+	if err != nil {
+		log.Println(err.Error())
+	}
+}
+
+//QUICServer starts the QUIC Server
+func QUICServer() {
+	modbustcp.SetHandler(h)
+	err := modbusquic.ServerCreate("4443")
 	if err != nil {
 		log.Println(err.Error())
 	}
